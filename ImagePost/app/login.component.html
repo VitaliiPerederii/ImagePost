@@ -1,0 +1,15 @@
+﻿<form (ngSubmit)="login()" #heroForm="ngForm">
+    <div>
+        <md-input-container>
+            <input mdInput placeholder="User name" required [(ngModel)]="userName" name="userName">
+        </md-input-container>
+    </div>
+    <div>
+        <md-input-container>
+            <input mdInput type="password" placeholder="Password" required [(ngModel)]="password" name="password">
+        </md-input-container>
+    </div>
+    <div>
+        <button type="submit" md-raised-button>Login</button>
+    </div>
+</form>
