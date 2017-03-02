@@ -6,12 +6,18 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
+import { FeedComponent } from './feed.component';
+import { AuthGuard } from './auth-guard.service';
+import { RegisterComponent } from './register.component';
+
 
 import 'hammerjs';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent }
+    { path: '', redirectTo: '/feed', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'feed', component: FeedComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -21,8 +27,8 @@ const routes: Routes = [
         MaterialModule,
         RouterModule.forRoot(routes, { useHash: true })
     ],
-    declarations: [AppComponent, LoginComponent],
-    providers: [LoginService],
+    declarations: [AppComponent, LoginComponent, FeedComponent, RegisterComponent],
+    providers: [LoginService, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

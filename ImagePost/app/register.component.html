@@ -1,4 +1,4 @@
-﻿<form (ngSubmit)="login()" #heroForm="ngForm">
+﻿<form (ngSubmit)="register()" #heroForm="ngForm">
     <div>
         <md-input-container>
             <input mdInput placeholder="User name" required [(ngModel)]="userName" name="userName">
@@ -10,7 +10,11 @@
         </md-input-container>
     </div>
     <div>
-        <button type="submit" md-raised-button>Login</button>
-        <a md-button routerLink="../register">Register</a>
+        <md-input-container>
+            <input mdInput type="password" placeholder="Confirm password" required [(ngModel)]="confirmPassword" name="confirmPassword">
+        </md-input-container>
+    </div>
+    <div>
+        <button type="submit" md-raised-button>Register</button>
     </div>
 </form>

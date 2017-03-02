@@ -10,6 +10,7 @@ namespace ImagePost.Models
         public AjaxDTO()
         {
             Success = true;
+            Message = "Ok";
         }
 
         public bool Success { get; set; }

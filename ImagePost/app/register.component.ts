@@ -4,18 +4,19 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    selector: 'my-login',
-    templateUrl: './login.component.html'
+    selector: 'my-register',
+    templateUrl: './register.component.html'
 })
-export class LoginComponent {
+export class RegisterComponent {
 
     constructor(private loginService: LoginService, private router: Router) { }
 
-    userName = '';
-    password = '';
+    private userName = '';
+    private password = '';
+    private comfirmPassword = '';
 
-    login(): void {
-        this.loginService.login(this.userName, this.password)
+    register(): void {
+        this.loginService.register(this.userName, this.password)
             .then(result => {
                 if (result.Success) {
                     this.router.navigate(['/feed']);

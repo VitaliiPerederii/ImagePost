@@ -22,12 +22,6 @@ namespace ImagePost.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
         public ApplicationSignInManager SignInManager
         {
             get
@@ -67,10 +61,8 @@ namespace ImagePost.Controllers
 
                 var result = SignInManager.PasswordSignIn(model.Email, model.Password, true, shouldLockout: false);
                 if (result == SignInStatus.Success)
-                {
-                    dto.Message = "Ok";
                     return;
-                }
+                    
 
                 dto.Success = false;
                 dto.Message = result.ToString();
@@ -97,15 +89,28 @@ namespace ImagePost.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 
         [HttpPost]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return PerformAjax((dto) =>
+            {
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            }); 
+            
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult UserName()
+        {
+            return PerformAjax((dto) =>
+            {
+                if (HttpContext.User.Identity.IsAuthenticated)
+                    dto.Data = HttpContext.User.Identity.Name;
+            });
         }
 
         protected override void Dispose(bool disposing)
